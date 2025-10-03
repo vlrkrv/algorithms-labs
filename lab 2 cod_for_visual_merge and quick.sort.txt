@@ -1,0 +1,118 @@
+digraph G {
+    rankdir=TB;
+    node [shape=rectangle, style=filled, fillcolor=lightblue];
+    
+    // Ітеративний підхід (ліва частина)
+    subgraph cluster_iterative {
+        label="(а) Ітеративний підхід (Bottom-Up)";
+        style=filled;
+        fillcolor=lightyellow;
+        
+        I1 [label="[50,80,19,86,35,7,60,48,51]"];
+        I2 [label="[50,80] [19,86] [7,35] [48,60] [51]"];
+        I3 [label="[19,50,80,86]   [7,35,48,60]   [51]"];
+        I4 [label="[7,19,35,48,50,60,80,86] [51]"];
+        I5 [label="[7,19,35,48,50,51,60,80,86]"];
+        
+        I1 -> I2 [label="↓"];
+        I2 -> I3 [label="↓"];
+        I3 -> I4 [label="↓"];
+        I4 -> I5 [label="↓"];
+    }
+    
+    // Рекурсивний підхід (права частина)
+    subgraph cluster_recursive {
+        label="(б) Рекурсивний підхід (Top-Down)";
+        style=filled;
+        fillcolor=lightgreen;
+        
+        R1 [label="[50,80,19,86,35,7,60,48,51]"];
+        
+        // Перший рівень
+        R2 [label="[50,80,19,86]"];
+        R3 [label="[35,7,60,48,51]"];
+        
+        // Другий рівень - ліва гілка
+        R4 [label="[50,80]"];
+        R5 [label="[19,86]"];
+        
+        // Другий рівень - права гілка
+        R6 [label="[35,7]"];
+        R7 [label="[60,48,51]"];
+        
+        // Третій рівень - ліва гілка
+        R8 [label="[50]"];
+        R9 [label="[80]"];
+        R10 [label="[19]"];
+        R11 [label="[86]"];
+        
+        // Третій рівень - права гілка
+        R12 [label="[35]"];
+        R13 [label="[7]"];
+        R14 [label="[60]"];
+        R15 [label="[48,51]"];
+        
+        // Четвертий рівень
+        R16 [label="[48]"];
+        R17 [label="[51]"];
+        
+        // Злиття - ліва гілка
+        M1 [label="[50,80]", fillcolor=yellow];
+        M2 [label="[19,86]", fillcolor=yellow];
+        M3 [label="[19,50,80,86]", fillcolor=orange];
+        
+        // Злиття - права гілка
+        M4 [label="[7,35]", fillcolor=yellow];
+        M5 [label="[48,51]", fillcolor=yellow];
+        M6 [label="[48,51,60]", fillcolor=orange];
+        M7 [label="[7,35,48,51,60]", fillcolor=orange];
+        
+        // Фінальне злиття
+        M8 [label="[7,19,35,48,50,51,60,80,86]", fillcolor=red];
+        
+        // З'єднання для рекурсивного підходу
+        R1 -> R2;
+        R1 -> R3;
+        
+        R2 -> R4;
+        R2 -> R5;
+        
+        R3 -> R6;
+        R3 -> R7;
+        
+        R4 -> R8;
+        R4 -> R9;
+        
+        R5 -> R10;
+        R5 -> R11;
+        
+        R6 -> R12;
+        R6 -> R13;
+        
+        R7 -> R14;
+        R7 -> R15;
+        
+        R15 -> R16;
+        R15 -> R17;
+        
+        // З'єднання для злиття (пунктирні лінії)
+        R8 -> M1 [style=dashed, color=gray];
+        R9 -> M1 [style=dashed, color=gray];
+        R10 -> M2 [style=dashed, color=gray];
+        R11 -> M2 [style=dashed, color=gray];
+        M1 -> M3 [style=dashed, color=gray];
+        M2 -> M3 [style=dashed, color=gray];
+        
+        R12 -> M4 [style=dashed, color=gray];
+        R13 -> M4 [style=dashed, color=gray];
+        R16 -> M5 [style=dashed, color=gray];
+        R17 -> M5 [style=dashed, color=gray];
+        R14 -> M6 [style=dashed, color=gray];
+        M5 -> M6 [style=dashed, color=gray];
+        M4 -> M7 [style=dashed, color=gray];
+        M6 -> M7 [style=dashed, color=gray];
+        
+        M3 -> M8 [style=dashed, color=gray];
+        M7 -> M8 [style=dashed, color=gray];
+    }
+}
