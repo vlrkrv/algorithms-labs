@@ -55,8 +55,8 @@ def build_closed_hash_table(words: list, m: int) -> list:
 def display_hash_table(table: list):
     """Виводить хеш-таблицю у зручному форматі."""
     print("\n--- Хеш-таблиця (Відкрита адресація, М=13) ---")
-    print("Індекс | Слово")
-    print("---|---")
+    print("Індекс|Слово")
+    print("------|------")
     for i, item in enumerate(table):
         # Виводимо ключі або позначку, що комірка порожня
         value = item if item is not None else "(NULL)"
@@ -65,3 +65,4 @@ def display_hash_table(table: list):
 # Виконання:
 hash_table = build_closed_hash_table(WORDS, M)
 display_hash_table(hash_table)
+
